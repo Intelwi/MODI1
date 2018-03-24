@@ -21,7 +21,7 @@ ylabel('y(u)');
 
 
 %jednowymiarowe statyczne charakterystyki zlinearyzowane dla trzech kolejnych punktów u_c=-0.5,
-%u_c=1, u_c=0.5 , na tle charakterystyki nieliniowej
+%u_c=0, u_c=0.5 , na tle charakterystyki nieliniowej
 for v = -0.5:0.5:0.5
     u_c = v;
     
