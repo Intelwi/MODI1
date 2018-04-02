@@ -1,0 +1,9 @@
+Tresc
+
+\begin{aligned} \frac{\mathrm{d}x_{1}(t)}{\mathrm{d} x}=-\frac{T_{1}+T_{2}}{T_{1}T_{2}}x_{1}(t)+x_{2}(t)\\\frac{\mathrm{dx_{2}(t)} }{\mathrm{d} x} = -\frac{1}{T_{1} T_{2}} x_{1}(t) + \frac{K}{T_{1} T_{2}}(\alpha_{1}u(t)+\alpha_{2}u(t)^{2}+\alpha_{3}u(t)^{3}+\alpha_{4}u(t)^{4})\\y(t)=x_{1}(t)\end{aligned} 
+
+----------------------------------------------------------------------------------
+
+Zad no 2
+
+\begin{aligned} \frac{x_{1}(k)-x_{1}(k-1)}{Tp}=-\frac{T_{1}+T_{2}}{T_{1}T_{2}}x_{1}(k-1)+x_{2}(k-1)\\\frac{x_{2}(k)-x_{2}(k-1)}{Tp} = -\frac{1}{T_{1} T_{2}} x_{1}(k-1) + \frac{K}{T_{1} T_{2}}(\alpha_{1}u(k-1)+\alpha_{2}u(k-1)^{2}+\alpha_{3}u(k-1)^{3}+\alpha_{4}u(k-1)^{4})\\ \\x_{1}(k)=x_{1}(k-1)-Tp \left(\frac{T_{1}+T_{2}}{T_{1}T_{2}}x_{1}(k-1)-x_{2}(k-1)\right)=x_{1}(k-1)\left(1-Tp\frac{T_{1}+T_{2}}{T_{1}T_{2}}\right)+x_{2}(k-1)Tp \\ x_{2}(k)=x_{2}(k-1)-Tp\left( \frac{1}{T_{1} T_{2}} x_{1}(k-1) - \frac{K}{T_{1} T_{2}}(\alpha_{1}u(k-1)+\alpha_{2}u(k-1)^{2}+\alpha_{3}u(k-1)^{3}+\alpha_{4}u(k-1)^{4})\right)\\\\y(k)=x_{1}(k)\end{aligned}
