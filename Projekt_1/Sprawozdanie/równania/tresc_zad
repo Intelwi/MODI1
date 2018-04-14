@@ -20,3 +20,9 @@ Zad no 5
 \begin{aligned} y(u)=K(\alpha_{1}u+\alpha_{2}u^{2}+\alpha_{3}u^{3}+\alpha_{4}u^{4}) \\ y(u) \approx K(\alpha_{1}u+\alpha_{2}(\overline u^{2} +2\overline u (u-\overline u))+\alpha_{3}(\overline u^{3} +3\overline u^{2}(u-\overline u))+\alpha_{4}(\overline u^{4} +4\overline u^{3}(u-\overline u)))\\y(u) \approx K(u(\alpha_{1}+2\alpha_{2}\overline u +3 \alpha_{3} \overline u^{2} +4\alpha_{4} \overline u^{3})-(\alpha_{2}\overline u^{2}+2\alpha_{3}\overline u^{3}+3\alpha_{4}\overline u^{4})) \end{aligned}
 
 ----------------------------------------------------------------------------------
+
+Zad no 7
+
+\begin{aligned} x_{1}(k)=x_{1}(k-1)\left(1-Tp\frac{T_{1}+T_{2}}{T_{1}T_{2}}\right)+x_{2}(k-1)Tp \\\\ x_{2}(k)=x_{2}(k-1)-Tp\left( \frac{1}{T_{1} T_{2}} x_{1}(k-1) - \frac{K}{T_{1} T_{2}}(\alpha_{1}u(k-1)+\alpha_{2}u(k-1)^{2}+\alpha_{3}u(k-1)^{3}+\alpha_{4}u(k-1)^{4})\right)\\ x_{2}(k) \approx  x_{2}(k-1)-Tp\left( \frac{1}{T_{1} T_{2}} x_{1}(k-1) - \frac{K}{T_{1} T_{2}}(\alpha_{1}u(k-1)+\alpha_{2}(\overline u^{2} +2\overline u (u(k-1)-\overline u))+\alpha_{3}(\overline u^{3} + 3\overline u^{2}(u(k-1)-\overline u))+\alpha_{4}(\overline u^{4} +4\overline u^{3}(u(k-1)-\overline u)))\right) \\x_{2}(k) \approx  x_{2}(k-1)-Tp\left( \frac{1}{T_{1} T_{2}} x_{1}(k-1) - \frac{K}{T_{1} T_{2}}(u(k-1)(\alpha_{1}+2\alpha_{2}\overline u +3 \alpha_{3} \overline u^{2} +4\alpha_{4} \overline u^{3})-(\alpha_{2}\overline u^{2}+2\alpha_{3}\overline u^{3}+3\alpha_{4}\overline u^{4}))\right)\\\\y(k)=x_{1}(k)\end{aligned}
+
+----------------------------------------------------------------------------------
