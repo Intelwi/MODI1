@@ -20,7 +20,7 @@ X_wer = X(2:2:end);
 Y_wer = Y(2:2:end); 
 
 %-########################################################
-i=4 % rząd modelu   ######################################
+i=2 % rząd modelu   ######################################
 %#########################################################
 
 %statyczny model nieliniowy rzędu 2
@@ -34,7 +34,7 @@ if(i==2)
     figure
     hold on
     fplot(y,[-1,1])
-    title('Charakterystyka statyczna rzędu 2')
+    title('Charakterystyka statyczna')
     xlabel('u');
     ylabel('y(u)');
     hold off
@@ -61,9 +61,9 @@ if(i==2)
     hold on
     scatter(X_ucz,Y_ucz,'red')
     scatter(X_ucz,M*w,'blue')
-    title('Wyjście modelu rz 2 na tle danych uczących')
-    xlabel('x');
-    ylabel('y(x)');
+    title('Wyjście modelu na tle danych uczących')
+    xlabel('u');
+    ylabel('y(u)');
     hold off
 
     %wyjście modelu na tle zbioru danych weryfikujących
@@ -71,9 +71,9 @@ if(i==2)
     hold on
     scatter(X_wer,Y_wer,'red')
     scatter(X_wer,M1*w,'blue')
-    title('Wyjście modelu rz 2 na tle danych weryfikujących')
-    xlabel('x');
-    ylabel('y(x)');
+    title('Wyjście modelu na tle danych weryfikujących')
+    xlabel('u');
+    ylabel('y(u)');
     hold off
 end
 
@@ -118,8 +118,8 @@ if(i==3)
     scatter(X_ucz,Y_ucz,'red')
     scatter(X_ucz,M*w,'blue')
     title('Wyjście modelu rz 3 na tle danych uczących')
-    xlabel('x');
-    ylabel('y(x)');
+    xlabel('u');
+    ylabel('y(u)');
     hold off
 
     %wyjście modelu na tle zbioru danych weryfikujących
@@ -128,8 +128,8 @@ if(i==3)
     scatter(X_wer,Y_wer,'red')
     scatter(X_wer,M1*w,'blue')
     title('Wyjście modelu rz 3 na tle danych weryfikujących')
-    xlabel('x');
-    ylabel('y(x)');
+    xlabel('u');
+    ylabel('y(u)');
     hold off
 end
 
@@ -174,8 +174,8 @@ if(i==4)
     scatter(X_ucz,Y_ucz,'red')
     scatter(X_ucz,M*w,'blue')
     title('Wyjście modelu rz 4 na tle danych uczących')
-    xlabel('x');
-    ylabel('y(x)');
+    xlabel('u');
+    ylabel('y(u)');
     hold off
 
     %wyjście modelu na tle zbioru danych weryfikujących
@@ -184,8 +184,8 @@ if(i==4)
     scatter(X_wer,Y_wer,'red')
     scatter(X_wer,M1*w,'blue')
     title('Wyjście modelu rz 4 na tle danych weryfikujących')
-    xlabel('x');
-    ylabel('y(x)');
+    xlabel('u');
+    ylabel('y(u)');
     hold off
 end
 
@@ -231,8 +231,8 @@ if(i==5)
     scatter(X_ucz,Y_ucz,'red')
     scatter(X_ucz,M*w,'blue')
     title('Wyjście modelu rz 5 na tle danych uczących')
-    xlabel('x');
-    ylabel('y(x)');
+    xlabel('u');
+    ylabel('y(u)');
     hold off
 
     %wyjście modelu na tle zbioru danych weryfikujących
@@ -241,8 +241,8 @@ if(i==5)
     scatter(X_wer,Y_wer,'red')
     scatter(X_wer,M1*w,'blue')
     title('Wyjście modelu rz 5 na tle danych weryfikujących')
-    xlabel('x');
-    ylabel('y(x)');
+    xlabel('u');
+    ylabel('y(u)');
     hold off
 end
 

@@ -16,8 +16,8 @@ figure
 hold on
 scatter(X,Y,'red')
 title('Dane')
-xlabel('x');
-ylabel('y(x)');
+xlabel('u');
+ylabel('y(u)');
 hold off
 
 %zbiór uczący
@@ -27,8 +27,8 @@ figure
 hold on
 scatter(X_ucz,Y_ucz,'red')
 title('Dane uczące')
-xlabel('x');
-ylabel('y(x)');
+xlabel('u');
+ylabel('y(u)');
 hold off
 
 %zbiór weryfikujący
@@ -38,8 +38,8 @@ figure
 hold on
 scatter(X_wer,Y_wer,'red')
 title('Dane weryfikujące')
-xlabel('x');
-ylabel('y(x)');
+xlabel('u');
+ylabel('y(u)');
 hold off
 
 %statyczny model liniowy
@@ -81,8 +81,8 @@ hold on
 scatter(X_ucz,Y_ucz,'red')
 scatter(X_ucz,M*w,'blue')
 title('Wyjście modelu na tle danych uczących')
-xlabel('x');
-ylabel('y(x)');
+xlabel('u');
+ylabel('y(u)');
 hold off
 
 %wyjście modelu na tle zbioru danych weryfikujących
@@ -91,8 +91,8 @@ hold on
 scatter(X_wer,Y_wer,'red')
 scatter(X_wer,M1*w,'blue')
 title('Wyjście modelu na tle danych weryfikujących')
-xlabel('x');
-ylabel('y(x)');
+xlabel('u');
+ylabel('y(u)');
 hold off
 
 
