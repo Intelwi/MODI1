@@ -9,3 +9,7 @@
 //model nieliniowy 
 
 \begin{aligned} y(u) =  a_{0}+\sum_{i=1}^{N} a_{i}u^{i}  \end{aligned}
+
+//błąd modelu nieliniowego
+
+

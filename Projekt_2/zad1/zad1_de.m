@@ -20,7 +20,7 @@ X_wer = X(2:2:end);
 Y_wer = Y(2:2:end); 
 
 %-########################################################
-i=2 % rząd modelu   ######################################
+i=4 % rząd modelu   ######################################
 %#########################################################
 
 %statyczny model nieliniowy rzędu 2
@@ -80,7 +80,7 @@ end
 %----------------------------------------------------------------
 
 %statyczny model nieliniowy rzędu 3
-if(i==3)
+if(i==5)
     M = [ones(100,1),X_ucz,X_ucz.^2,X_ucz.^3]
     w = M\Y_ucz % współczynniki funkcji liniowej
     
@@ -90,7 +90,7 @@ if(i==3)
     figure
     hold on
     fplot(y,[-1,1])
-    title('Charakterystyka statyczna rzędu 3')
+    title('Charakterystyka statyczna')
     xlabel('u');
     ylabel('y(u)');
     hold off
@@ -117,7 +117,7 @@ if(i==3)
     hold on
     scatter(X_ucz,Y_ucz,'red')
     scatter(X_ucz,M*w,'blue')
-    title('Wyjście modelu rz 3 na tle danych uczących')
+    title('Wyjście modelu na tle danych uczących')
     xlabel('u');
     ylabel('y(u)');
     hold off
@@ -127,7 +127,7 @@ if(i==3)
     hold on
     scatter(X_wer,Y_wer,'red')
     scatter(X_wer,M1*w,'blue')
-    title('Wyjście modelu rz 3 na tle danych weryfikujących')
+    title('Wyjście modelu na tle danych weryfikujących')
     xlabel('u');
     ylabel('y(u)');
     hold off
@@ -146,7 +146,7 @@ if(i==4)
     figure
     hold on
     fplot(y,[-1,1])
-    title('Charakterystyka statyczna rzędu 4')
+    title('Charakterystyka statyczna')
     xlabel('u');
     ylabel('y(u)');
     hold off
@@ -173,7 +173,7 @@ if(i==4)
     hold on
     scatter(X_ucz,Y_ucz,'red')
     scatter(X_ucz,M*w,'blue')
-    title('Wyjście modelu rz 4 na tle danych uczących')
+    title('Wyjście modelu na tle danych uczących')
     xlabel('u');
     ylabel('y(u)');
     hold off
@@ -183,7 +183,7 @@ if(i==4)
     hold on
     scatter(X_wer,Y_wer,'red')
     scatter(X_wer,M1*w,'blue')
-    title('Wyjście modelu rz 4 na tle danych weryfikujących')
+    title('Wyjście modelu na tle danych weryfikujących')
     xlabel('u');
     ylabel('y(u)');
     hold off
@@ -202,7 +202,7 @@ if(i==5)
     figure
     hold on
     fplot(y,[-1,1])
-    title('Charakterystyka statyczna rzędu 5')
+    title('Charakterystyka statyczna')
     xlabel('u');
     ylabel('y(u)');
     hold off
@@ -230,7 +230,7 @@ if(i==5)
     hold on
     scatter(X_ucz,Y_ucz,'red')
     scatter(X_ucz,M*w,'blue')
-    title('Wyjście modelu rz 5 na tle danych uczących')
+    title('Wyjście modelu na tle danych uczących')
     xlabel('u');
     ylabel('y(u)');
     hold off
@@ -240,7 +240,7 @@ if(i==5)
     hold on
     scatter(X_wer,Y_wer,'red')
     scatter(X_wer,M1*w,'blue')
-    title('Wyjście modelu rz 5 na tle danych weryfikujących')
+    title('Wyjście modelu na tle danych weryfikujących')
     xlabel('u');
     ylabel('y(u)');
     hold off
