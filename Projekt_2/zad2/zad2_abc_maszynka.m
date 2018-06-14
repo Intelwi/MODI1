@@ -19,10 +19,10 @@ figure
 hold on
 plot(k,X_ucz,'blue')
 plot(k,Y_ucz,'red')
-legend('x(k)','y(k)')
+legend('u(k)','y(k)')
 title('Dane uczące')
 xlabel('k');
-ylabel('y(x)');
+ylabel('Amplituda');
 hold off
 
 %pobranie danych weryfikacyjnych
@@ -42,16 +42,16 @@ figure
 hold on
 plot(k,X_wer,'blue')
 plot(k,Y_wer,'red')
-legend('x(k)','y(k)')
+legend('u(k)','y(k)')
 title('Dane weryfikacyjne')
 xlabel('k');
-ylabel('y(x)');
+ylabel('Amplituda');
 hold off
 
 
 
 %rząd 
-r = 3 %rząd dynamiki
+r = 1%rząd dynamiki
 r_w = 1; %rząd wielomianu
 
 Dane_ucz=[X_ucz, Y_ucz];
@@ -60,7 +60,7 @@ P=length(Dane_ucz);
 Y_ucz_wy=Dane_ucz(r+1:P,2);
 
 %Tworzenie uniwersalnej macierzy M
-M=ones(length(Dane_ucz)-r, 2*r*r_w);
+M=zeros(length(Dane_ucz)-r, 2*r*r_w);
 for i=1:r
     for j=1:r_w
         M(:,r_w*i-r_w+j)=Dane_ucz((r-(i-1)):(P-i),1).^j;
@@ -71,13 +71,13 @@ w=M\Y_ucz_wy;
 n=length(w)/2;
 
 %rekurencja
-y_mod_oe = zeros(P,1)
+y_mod_oe = zeros(P,1);
 %bez rekurencji
-y_mod_arx = zeros(P,1)
+y_mod_arx = zeros(P,1);
 %rekurencja
-y_mod_oe_wer = zeros(P,1)
+y_mod_oe_wer = zeros(P,1);
 %bez rekurencji
-y_mod_arx_wer = zeros(P,1)
+y_mod_arx_wer = zeros(P,1);
 
 
 for k=r+1:P
@@ -111,41 +111,45 @@ k = 1:P;
 %rysowanie wykresów dane uczace
     figure
     hold on
+    plot(k,X_ucz,'cyan')
     plot(k,Y_ucz,'blue')
     plot(k,y_mod_arx,'red')
-    legend('y_{ucz}(k)','y_{mod}(k)')
-    title('Wersja bez iteracji')
+    legend('u_{ucz}(k)','y_{ucz}(k)','y_{arx}(k)')
+    title('ARX')
     xlabel('k');
-    ylabel('y(x)');
+    ylabel('Amplituda');
     hold off
     
     figure
     hold on
+    plot(k,X_ucz,'cyan')
     plot(k,Y_ucz,'blue')
     plot(k,y_mod_oe,'red')
-    legend('y_{ucz}(k)','y_{mod}(k)')
-    title('Wersja z iteracją')
+    legend('u_{ucz}(k)','y_{ucz}(k)','y_{oe}(k)')
+    title('OE')
     xlabel('k');
-    ylabel('y(x)');
+    ylabel('Amplituda');
     hold off
     
      %rysowanie wykresów dane weryfikacyjne
     figure
     hold on
+    plot(k,X_wer,'cyan')
     plot(k,Y_wer,'blue')
     plot(k,y_mod_arx_wer,'red')
-    legend('y_{wer}(k)','y_{mod}(k)')
-    title('Wersja bez iteracji')
+    legend('u_{wer}(k)','y_{wer}(k)','y_{arx}(k)')
+    title('ARX')
     xlabel('k');
-    ylabel('y(x)');
+    ylabel('Amplituda');
     hold off
     
     figure
     hold on
+    plot(k,X_wer,'cyan')
     plot(k,Y_wer,'blue')
     plot(k,y_mod_oe_wer,'red')
-    legend('y_{wer}(k)','y_{mod}(k)')
-    title('Wersja z iteracją')
+    legend('u_{wer}(k)','y_{wer}(k)','y_{oe}(k)')
+    title('OE')
     xlabel('k');
-    ylabel('y(x)');
+    ylabel('Amplituda');
     hold 
