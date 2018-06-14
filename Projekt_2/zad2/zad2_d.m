@@ -15,15 +15,7 @@ A=A'
 %wykres
 X_ucz=A(1:end,1);
 Y_ucz=A(1:end,2);
-figure
-hold on
-plot(k,X_ucz,'blue')
-plot(k,Y_ucz,'red')
-legend('u(k)','y(k)')
-title('Dane uczące')
-xlabel('k');
-ylabel('Amplituda');
-hold off
+
 
 %pobranie danych weryfikacyjnych
 fileID = fopen('danedynwer41.txt','r');
@@ -38,21 +30,12 @@ A=A'
 %wykres
 X_wer=A(1:end,1);
 Y_wer=A(1:end,2);
-figure
-hold on
-plot(k,X_wer,'blue')
-plot(k,Y_wer,'red')
-legend('u(k)','y(k)')
-title('Dane weryfikacyjne')
-xlabel('k');
-ylabel('Amplituda');
-hold off
 
 
 
 %rząd 
 r = 4%rząd dynamiki
-r_w = 5; %rząd wielomianu dla r=2 i r_w=4 najlepsze, dla r=3 i r_w=4 jescze lepsze
+r_w = 5; %stopień wielomianu dla r=2 i r_w=4 najlepsze, dla r=3 i r_w=4 jescze lepsze
 
 Dane_ucz=[X_ucz, Y_ucz];
 Dane_wer=[X_wer, Y_wer];
@@ -129,48 +112,30 @@ Err_iter_wer=(norm(y_mod_oe_wer(r+1:P)-Y_wer(r+1:P)))^2
 k = 1:P;
 
 %rysowanie wykresów dane uczace
-    figure
-    hold on
-    plot(k,X_ucz,'cyan')
-    plot(k,Y_ucz,'blue')
-    plot(k,y_mod_arx,'red')
-    legend('u_{ucz}(k)','y_{ucz}(k)','y_{arx}(k)')
-    title('ARX')
+    subplot(2,1,1)
+   hold on
+   grid on
+    plot(k,Y_wer,'red')
+    plot(k,y_mod_arx_wer,'blue')
+    plot(k,y_mod_oe_wer,'cyan')
+   legend('y_{wer}(k)','y_{arx}(k)','y_{oe}(k)')
+   set(gca,'FontSize',20)
+   set(findall(gca, 'Type', 'Line'),'LineWidth',2);
     xlabel('k');
     ylabel('Amplituda');
-    hold off
+  hold off
     
-    figure
+    subplot(2,1,2)
     hold on
-    plot(k,X_ucz,'cyan')
-    plot(k,Y_ucz,'blue')
-    plot(k,y_mod_oe,'red')
-    legend('u_{ucz}(k)','y_{ucz}(k)','y_{oe}(k)')
-    title('OE')
+    grid on
+    plot(k,Y_ucz,'red')
+    plot(k,y_mod_arx,'blue')
+    plot(k,y_mod_oe,'cyan')
+    legend('y_{ucz}(k)','y_{arx}(k)','y_{oe}(k)')
+    set(gca,'FontSize',20)
+    set(findall(gca, 'Type', 'Line'),'LineWidth',2);
     xlabel('k');
     ylabel('Amplituda');
-    hold off
+   hold off
     
-     %rysowanie wykresów dane weryfikacyjne
-    figure
-    hold on
-    plot(k,X_wer,'cyan')
-    plot(k,Y_wer,'blue')
-    plot(k,y_mod_arx_wer,'red')
-    legend('u_{wer}(k)','y_{wer}(k)','y_{arx}(k)')
-    title('ARX')
-    xlabel('k');
-    ylabel('Amplituda');
-    hold off
-    
-    figure
-    hold on
-    plot(k,X_wer,'cyan')
-    plot(k,Y_wer,'blue')
-    plot(k,y_mod_oe_wer,'red')
-    legend('u_{wer}(k)','y_{wer}(k)','y_{oe}(k)')
-    title('OE')
-    xlabel('k');
-    ylabel('Amplituda');
-    hold 
     
