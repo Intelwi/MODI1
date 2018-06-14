@@ -1,9 +1,12 @@
 %Michał Stolarz
 %Projekt nr 2 MODI
 
+%ZAD 2
+%zrealizowano tutaj podpunkty a, b, c
+
 koniec = 2000;
 k = 1:koniec;
-%ZAD A
+%ZAD A,B,C
 %pobranie danych uczących
 fileID = fopen('danedynucz41.txt','r');
 formatSpec = '%g';
@@ -19,16 +22,18 @@ figure
 hold on
 plot(k,X_ucz,'blue')
 plot(k,Y_ucz,'red')
-legend('x(k)','y(k)')
+legend('u(k)','y(k)')
 title('Dane uczące')
 xlabel('k');
-ylabel('y(x)');
+ylabel('Amplituda');
 hold off
 
 %pobranie danych weryfikacyjnych
 fileID = fopen('danedynwer41.txt','r');
 formatSpec = '%g';
 sizeA = [2 Inf];
+
+
 A = fscanf(fileID,formatSpec,sizeA)
 fclose(fileID);
 A=A'
@@ -40,212 +45,114 @@ figure
 hold on
 plot(k,X_wer,'blue')
 plot(k,Y_wer,'red')
-legend('x(k)','y(k)')
+legend('u(k)','y(k)')
 title('Dane weryfikacyjne')
 xlabel('k');
-ylabel('y(x)');
+ylabel('Amplituda');
 hold off
 
 
 
 %rząd 
-r = 3
+r = 1%rząd dynamiki
+r_w = 1; %rząd wielomianu
 
-if(r == 1)
-    
-    %wyznaczenie modelu
-    M = [X_ucz(1:end-r) Y_ucz(1:end-r)];
-    w = M\Y_ucz(1+r:end);
-   
-    %dla danych uczacych#########################
-    
-    %bez rekurencji
-    Y_mod_arx = M*w;
-    
-    %z rekurencją
-    Y_mod_oe = zeros(koniec,1);
-    
-    for i=1+r:1:koniec
-        Y_mod_oe(i) = w(1)*X_ucz(i)+w(2)*Y_mod_oe(i-1);
-    end
-    
-    %dla danych weryfikujących######################
-    
-    %wyznaczenie macierzy
-    M = [X_wer(1:(end-r)) Y_wer(1:(end-r))];
-     
-    %bez rekurencji
-    Y_mod_arx1 = M*w;
-    
-    %z rekurencją
-    Y_mod_oe1 = zeros(koniec,1);
-    
-    for i=1+r:1:koniec
-        Y_mod_oe1(i) = w(1)*X_wer(i)+w(2)*Y_mod_oe1(i-1);
-    end
-    
-    
-    
-    %######################################################################
-%  Err_biter_ucz #### Err_iter_ucz #### Err_biter_wer #### Err_iter_wer
-%----------------------------------------------------------------------
-%   2.1428       #### 290.4320     #### 8.9105        ####  2.0925e+03
-%######################################################################
+Dane_ucz=[X_ucz, Y_ucz];
+Dane_wer=[X_wer, Y_wer];
+P=length(Dane_ucz);
+Y_ucz_wy=Dane_ucz(r+1:P,2);
 
+%Tworzenie uniwersalnej macierzy M
+M=zeros(length(Dane_ucz)-r, 2*r*r_w);
+for i=1:r
+    for j=1:r_w
+        M(:,r_w*i-r_w+j)=Dane_ucz((r-(i-1)):(P-i),1).^j;
+        M(:,r_w*i-r_w+j+r*r_w)=Dane_ucz((r-(i-1)):(P-i),2).^j;
+    end
 end
+w=M\Y_ucz_wy;
+n=length(w)/2;
 
-%##################################################################
-%##################################################################
+%rekurencja
+y_mod_oe = zeros(P,1);
+%bez rekurencji
+y_mod_arx = zeros(P,1);
+%rekurencja
+y_mod_oe_wer = zeros(P,1);
+%bez rekurencji
+y_mod_arx_wer = zeros(P,1);
 
-if(r == 2)
- %wyznaczenie modelu
-    M = [X_ucz(2:end-1) X_ucz(1:end-2) Y_ucz(2:end-1) Y_ucz(1:end-2)];
-    w = M\Y_ucz(1+r:end);
-   
-    
-    %dla danych uczacych##############################
-    
-    %bez rekurencji
-    Y_mod_arx = M*w;
-    
-    %z rekurencją
-    Y_mod_oe = zeros(koniec,1);
-    
-    for i=1+r:1:koniec
-        Y_mod_oe(i) = w(1)*X_ucz(i-1) + w(2)*X_ucz(i-2)+ w(3)*Y_mod_oe(i-1) + w(4)*Y_mod_oe(i-2);
+%tylko dla r_w=1
+for k=r+1:P
+    for m=1:r
+        y_mod_oe(k)=y_mod_oe(k)+w(m)*Dane_ucz(k-m,1)+w(m+n)*y_mod_oe(k-m);%rekurencja dane ucz
+        
+        y_mod_oe_wer(k)=y_mod_oe_wer(k)+w(m)*Dane_wer(k-m,1)+w(m+n)*y_mod_oe_wer(k-m);%rekurencja dane wer
+        
+        y_mod_arx(k)=y_mod_arx(k)+w(m)*Dane_ucz(k-m,1)+w(m+n)*Dane_ucz(k-m,2);%nie rekurencja dane ucz
+        
+        y_mod_arx_wer(k)=y_mod_arx_wer(k)+w(m)*Dane_wer(k-m,1)+w(m+n)*Dane_wer(k-m,2);%nie rekurencja dane ucz
+        
     end
-    
-    %dla danych weryfikujących############################
-    
-    %wyznaczenie macierzy
-     M = [X_wer(r:end-1) X_wer(1:end-r) Y_wer(r:end-1) Y_wer(1:end-r)];
-     
-    %bez rekurencji
-    Y_mod_arx1 = M*w;
-    
-    %z rekurencją
-    Y_mod_oe1 = zeros(koniec,1);
-    
-    for i=1+r:1:koniec
-        Y_mod_oe1(i) = w(1)*X_wer(i-1) + w(2)*X_wer(i-2)+ w(3)*Y_mod_oe1(i-1) + w(4)*Y_mod_oe1(i-2);
-    end
-    
-    
-%######################################################################
-%  Err_biter_ucz #### Err_iter_ucz #### Err_biter_wer #### Err_iter_wer
-%----------------------------------------------------------------------
-%   0.2828       #### 251.1570     #### 0.8846        ####  1.9723e+03
-%######################################################################
-end
-
-if(r == 3)
-
-    %wyznaczenie modelu
-    M = [X_ucz(3:end-1) X_ucz(2:end-2) X_ucz(1:end-3) Y_ucz(3:end-1) Y_ucz(2:end-2) Y_ucz(1:end-3)];
-    w = M\Y_ucz(1+r:end);
-   
-    
-    %dla danych uczacych##############################
-    
-    %bez rekurencji
-    Y_mod_arx = M*w;
-    
-    %z rekurencją
-    Y_mod_oe = zeros(koniec,1);
-    
-    for i=1+r:1:koniec
-        Y_mod_oe(i) = w(1)*X_ucz(i-1) + w(2)*X_ucz(i-2) + w(3)*X_ucz(i-3) + w(4)*Y_mod_oe(i-1) + w(5)*Y_mod_oe(i-2) + w(6)*Y_mod_oe(i-3);
-    end
-    
-    %dla danych weryfikujących############################
-    
-    %wyznaczenie macierzy
-    M = [X_wer(3:end-1) X_wer(2:end-2) X_wer(1:end-3) Y_wer(3:end-1) Y_wer(2:end-2) Y_wer(1:end-3)];
-     
-    %bez rekurencji
-    Y_mod_arx1 = M*w;
-    
-    %z rekurencją
-    Y_mod_oe1 = zeros(koniec,1);
-    
-    for i=1+r:1:koniec
-        Y_mod_oe1(i) = w(1)*X_wer(i-1) + w(2)*X_wer(i-2) + + w(3)*X_wer(i-3) + w(4)*Y_mod_oe1(i-1) + w(5)*Y_mod_oe1(i-2) + w(6)*Y_mod_oe1(i-3);
-    end
-    
-    
-%######################################################################
-%  Err_biter_ucz #### Err_iter_ucz #### Err_biter_wer #### Err_iter_wer
-%----------------------------------------------------------------------
-%   6.3137       #### 257.0699     #### 11.8414        ####  1.9824e+03
-%######################################################################
-    
 end
 
 
- %rysowanie wykresów dane uczace
+%błąd bez rekurencji dla Dane_ucz
+Err_biter_ucz=(norm(y_mod_arx(r+1:P)-Y_ucz(r+1:P)))^2
+
+%bład z rekurencją dla Dane_ucz
+Err_iter_ucz=(norm(y_mod_oe(r+1:P)-Y_ucz(r+1:P)))^2
+
+%błąd bez rekurencji dla Dane_wer
+Err_biter_wer=(norm(y_mod_arx_wer(r+1:P)-Y_wer(r+1:P)))^2
+
+%bład z rekurencją dla Dane_wer
+Err_iter_wer=(norm(y_mod_oe_wer(r+1:P)-Y_wer(r+1:P)))^2
+
+k = 1:P;
+
+%rysowanie wykresów dane uczace
     figure
     hold on
+    plot(k,X_ucz,'cyan')
     plot(k,Y_ucz,'blue')
-    plot(k(1+r:end),Y_mod_arx,'red')
-    legend('y_{ucz}(k)','y_{mod}(k)')
-    title('Wersja bez iteracji')
+    plot(k,y_mod_arx,'red')
+    legend('u_{ucz}(k)','y_{ucz}(k)','y_{arx}(k)')
+    title('ARX')
     xlabel('k');
-    ylabel('y(x)');
+    ylabel('Amplituda');
     hold off
     
     figure
     hold on
+    plot(k,X_ucz,'cyan')
     plot(k,Y_ucz,'blue')
-    plot(k,Y_mod_oe,'red')
-    legend('y_{ucz}(k)','y_{mod}(k)')
-    title('Wersja z iteracją')
+    plot(k,y_mod_oe,'red')
+    legend('u_{ucz}(k)','y_{ucz}(k)','y_{oe}(k)')
+    title('OE')
     xlabel('k');
-    ylabel('y(x)');
+    ylabel('Amplituda');
     hold off
     
      %rysowanie wykresów dane weryfikacyjne
     figure
     hold on
+    plot(k,X_wer,'cyan')
     plot(k,Y_wer,'blue')
-    plot(k(1+r:end),Y_mod_arx1,'red')
-    legend('y_{wer}(k)','y_{mod}(k)')
-    title('Wersja bez iteracji')
+    plot(k,y_mod_arx_wer,'red')
+    legend('u_{wer}(k)','y_{wer}(k)','y_{arx}(k)')
+    title('ARX')
     xlabel('k');
-    ylabel('y(x)');
+    ylabel('Amplituda');
     hold off
     
     figure
     hold on
+    plot(k,X_wer,'cyan')
     plot(k,Y_wer,'blue')
-    plot(k,Y_mod_oe1,'red')
-    legend('y_{wer}(k)','y_{mod}(k)')
-    title('Wersja z iteracją')
+    plot(k,y_mod_oe_wer,'red')
+    legend('u_{wer}(k)','y_{wer}(k)','y_{oe}(k)')
+    title('OE')
     xlabel('k');
-    ylabel('y(x)');
+    ylabel('Amplituda');
     hold 
-    
-     %definicja  zmiennej
-     Err_biter_ucz=0;
-     Err_iter_ucz=0;
-    
-    for i = 1:1:koniec-r
-        Err_biter_ucz = Err_biter_ucz+(Y_ucz(i+2) - Y_mod_arx(i))^2;
-       
-    end
-    
-    for i = 1+r:1:koniec
-        Err_iter_ucz = Err_iter_ucz+(Y_ucz(i) - Y_mod_oe(i))^2;
-    end
-    
-    %definicja  zmiennej
-     Err_biter_wer=0;
-     Err_iter_wer=0;
-    
-    for i = 1:1:koniec-r
-        Err_biter_wer = Err_biter_wer+(Y_wer(i+2) - Y_mod_arx1(i))^2;
-       
-    end
-    
-    for i = 1+r:1:koniec
-        Err_iter_wer = Err_iter_wer+(Y_wer(i) - Y_mod_oe1(i))^2;
-    end

@@ -1,6 +1,9 @@
 %Michał Stolarz
 %Projekt nr 2 MODI
 
+%ZAD 1
+%zrealizowano tutaj podpunkty a, b, c
+
 %pobranie danych
 fileID = fopen('danestat41.txt','r');
 formatSpec = '%g';

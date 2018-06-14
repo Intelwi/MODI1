@@ -1,9 +1,12 @@
 %Michał Stolarz
 %Projekt nr 2 MODI
 
+%ZAD 2
+%zrealizowano tutaj podpunkt d
+
 koniec = 2000;
 k = 1:koniec;
-%ZAD A
+%ZAD D
 %pobranie danych uczących
 fileID = fopen('danedynucz41.txt','r');
 formatSpec = '%g';
@@ -32,10 +35,12 @@ X_wer=A(1:end,1);
 Y_wer=A(1:end,2);
 
 
-
+%###########################################################
 %rząd 
-r = 4%rząd dynamiki
-r_w = 5; %stopień wielomianu dla r=2 i r_w=4 najlepsze, dla r=3 i r_w=4 jescze lepsze
+r = 4; %rząd dynamiki
+r_w = 5; %stopień wielomianu
+
+%###########################################################
 
 Dane_ucz=[X_ucz, Y_ucz];
 Dane_wer=[X_wer, Y_wer];
@@ -62,20 +67,6 @@ y_mod_oe_wer = zeros(P,1);
 %bez rekurencji
 y_mod_arx_wer = zeros(P,1);
 
-%{
-for k=r+1:P
-    for m=1:r
-        y_mod_oe(k)=y_mod_oe(k)+w(m)*Dane_ucz(k-m,1)+w(m+n)*y_mod_oe(k-m);%rekurencja dane ucz
-        
-        y_mod_oe_wer(k)=y_mod_oe_wer(k)+w(m)*Dane_wer(k-m,1)+w(m+n)*y_mod_oe_wer(k-m);%rekurencja dane wer
-        
-        y_mod_arx(k)=y_mod_arx(k)+w(m)*Dane_ucz(k-m,1)+w(m+n)*Dane_ucz(k-m,2);%nie rekurencja dane ucz
-        
-        y_mod_arx_wer(k)=y_mod_arx_wer(k)+w(m)*Dane_wer(k-m,1)+w(m+n)*Dane_wer(k-m,2);%nie rekurencja dane ucz
-        
-    end
-end
-%}
 
 no = 0
 for k=r+1:P
